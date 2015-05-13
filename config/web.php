@@ -8,11 +8,13 @@ $params = ArrayHelper::merge(
 $config = [
     'id' => 'app',
     'defaultRoute' => 'main/default/index',
+    'layout' => 'main',
     'components' => [
         'user' => [
             'identityClass' => 'app\modules\user\models\User',
             'enableAutoLogin' => true,
             'loginUrl' => ['user/default/login'],
+
         ],
         'errorHandler' => [
             'errorAction' => 'main/default/error',
@@ -23,11 +25,52 @@ $config = [
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
         ],
-        'passwordHashStrategy' => 'password_hash'
+        'assetManager' => [
+            'class' => 'yii\web\AssetManager',
+            'appendTimestamp' => true,
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'js' => [
+                        YII_ENV_DEV ? 'jquery.js' : 'jquery.min.js'
+                    ]
+                ],
+
+            ],
+        ],
+        'view' => [
+            'class' => 'yii\web\View',
+            'renderers' => [
+                'twig' => [
+                    'class' => 'yii\twig\ViewRenderer',
+                    'cachePath' => '@runtime/Twig/cache',
+                    // Array of twig options:
+                    'options' => [
+                        'auto_reload' => true,
+                        'debug' => true,
+                        'autoescape' => true,
+                    ],
+                    'extensions' => [
+                        'Twig_Extension_Debug',
+                        'Twig_Extension_Escaper',
+                    ],
+                    'globals' => [
+                        'Html' => '\yii\helpers\Html',
+                        'Nav' => 'yii\bootstrap\Nav',
+                        'NavBar' => 'yii\bootstrap\NavBar',
+                        'Breadcrumbs' => 'yii\widgets\Breadcrumbs',
+                        'Alert' => 'app\components\widgets\Alert',
+                        'MyFunc' => 'app\components\MyFunc',
+                    ],
+                    'uses' => ['yii\bootstrap'],
+                ],
+                // ...
+            ],
+        ],
+
     ],
 ];
 
-echo '<pre>';print_r($config); echo '</pre>';
+//echo '<pre>';print_r($config); echo '</pre>';
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';

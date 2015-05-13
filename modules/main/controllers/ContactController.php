@@ -8,10 +8,10 @@
 namespace app\modules\main\controllers;
 
 use app\modules\main\models\ContactForm;
-use yii\web\Controller;
+use app\components\BaseController;
 use Yii;
 
-class ContactController extends Controller
+class ContactController extends BaseController
 {
     public function actions()
     {
@@ -26,6 +26,11 @@ class ContactController extends Controller
     public function actionIndex()
     {
         $model = new ContactForm();
+        if ($user = Yii::$app->user->identity) {
+            /** @var \app\modules\user\models\User $user */
+            $model->name = $user->username;
+            $model->email = $user->email;
+        }
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
 

@@ -61,6 +61,7 @@ class SignupForm extends Model
             $user->generateEmailConfirmToken();
 
             if ($user->save()) {
+                //echo '<pre>'; print_r($confirmLink = Yii::$app->urlManager->createAbsoluteUrl(['user/default/confirm-email', 'token' => $user->email_confirm_token])); echo '</pre>';
                 Yii::$app->mailer->compose('confirmEmail', ['user' => $user])
                     ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name])
                     ->setTo($this->email)
@@ -68,7 +69,7 @@ class SignupForm extends Model
                     ->send();
             }
 
-            return $user;
+            //return $user;
         }
 
         return null;

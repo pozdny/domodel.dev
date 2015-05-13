@@ -1,0 +1,80 @@
+{{ use('app/assets/AppAsset') }}
+{{ register_app_asset(this) }}
+{{ this.beginPage() }}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="{{ app.charset }} ">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% set csrf = Html.csrfMetaTags() %}
+    {% autoescape false %}
+    {{ csrf }}
+    {% endautoescape %}
+    <title>{% block title %} {{ Html.encode(this.title) }} {% endblock %}</title>
+    {{ this.head() }}
+</head>
+{{ this.beginBody() }}
+<body>
+    <div class="wrap">
+        {{ NavBar_begin({
+           'brandLabel': 'My Company',
+           'brandUrl' : app.homeUrl,
+           'options' : {
+               'class' : 'navbar-inverse navbar-fixed-top'
+           }
+        }) }}
+        {{ Nav_widget({
+           'options' : {
+              'class' : 'navbar-nav navbar-right'
+           },
+           'items' : MyFunc.arrayFilter([
+              {
+                'label' : 'Home',
+                'url' : ['/main/default/index']
+              },
+              {
+                'label' : 'Каталог',
+                'url' : ['/catalog/default/index']
+              },
+              {
+                'label' : 'Contact',
+                'url' : ['/main/contact/index']
+              },
+              app.user.isGuest ?
+              {
+                 'label' : 'Sign Up',
+                 'url' : ['/user/default/signup']
+              } : false,
+              app.user.isGuest ?
+              {
+                 'label' : 'Login',
+                 'url' : ['/user/default/login']
+              } :
+              {
+                'label': 'Logout (' ~ app.user.identity.username ~ ')',
+                'url' : ['/user/default/logout'],
+                'linkOptions' : {'data-method' : 'post'},
+              }
+           ])
+        })
+        }}
+        {{ NavBar_end() }}
+        <div class="container">
+            <div class="row">
+            {% block content %}
+
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+            <p class="pull-right"><?= Yii::powered() ?></p>
+        </div>
+    </footer>
+    {{ this.endBody() }}
+</body>
+
+</html>
+{{ this.endPage() }}

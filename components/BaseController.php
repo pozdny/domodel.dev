@@ -13,7 +13,7 @@ class BaseController extends Controller
 	 * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
 	 */
 
-    //public $layout='/column2';
+    public $layout='/columnOne.twig';
 
         
 }

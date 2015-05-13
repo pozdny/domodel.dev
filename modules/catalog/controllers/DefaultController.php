@@ -1,10 +1,10 @@
 <?php
 
-namespace app\modules\main\controllers;
+namespace app\modules\catalog\controllers;
 
-use app\components\BaseController;
+use yii\web\Controller;
 
-class DefaultController extends BaseController
+class DefaultController extends Controller
 {
     public function actions()
     {
@@ -14,9 +14,10 @@ class DefaultController extends BaseController
             ],
         ];
     }
-
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('index', [
+            'name' => 'ku-ku',
+        ]);
     }
 }
