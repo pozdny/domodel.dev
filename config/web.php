@@ -14,7 +14,6 @@ $config = [
             'identityClass' => 'app\modules\user\models\User',
             'enableAutoLogin' => true,
             'loginUrl' => ['user/default/login'],
-
         ],
         'errorHandler' => [
             'errorAction' => 'main/default/error',
@@ -34,7 +33,6 @@ $config = [
                         YII_ENV_DEV ? 'jquery.js' : 'jquery.min.js'
                     ]
                 ],
-
             ],
         ],
         'view' => [
