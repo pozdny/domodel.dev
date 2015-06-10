@@ -7,6 +7,7 @@ $params = ArrayHelper::merge(
 );
 
 return [
+    'name' => 'Valentina Pozdnyakova',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'modules' => [
@@ -18,7 +19,7 @@ return [
         ],
         'catalog' => [
             'class' => 'app\modules\catalog\Module',
-            'layout' => '@app/views/layouts/columnTwo.twig',
+            'layout' => '@app/views/layouts/columnTwo.php',
         ],
     ],
     'components' => [

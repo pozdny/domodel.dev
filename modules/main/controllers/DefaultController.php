@@ -17,6 +17,7 @@ class DefaultController extends BaseController
 
     public function actionIndex()
     {
-        return $this->render('index');
+        //echo '<pre>'; print_r($this); echo '</pre>';
+        return $this->render('index.twig');
     }
 }

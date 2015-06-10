@@ -7,8 +7,8 @@ $params = ArrayHelper::merge(
 
 $config = [
     'id' => 'app',
-    'defaultRoute' => 'main/default/index',
-    'layout' => 'main',
+    'defaultRoute' => 'main/default/index.twig',
+    'layout' => 'main.php',
     'components' => [
         'user' => [
             'identityClass' => 'app\modules\user\models\User',
@@ -61,8 +61,10 @@ $config = [
                     ],
                     'uses' => ['yii\bootstrap'],
                 ],
+
                 // ...
             ],
+            'defaultExtension' => 'twig'
         ],
 
     ],

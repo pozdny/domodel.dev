@@ -1,4 +1,5 @@
 {{ use('app/assets/AppAsset') }}
+{{ use('yii/widgets/Breadcrumbs') }}
 {{ register_app_asset(this) }}
 {{ this.beginPage() }}
 <!DOCTYPE html>
@@ -10,14 +11,14 @@
     {% autoescape false %}
     {{ csrf }}
     {% endautoescape %}
-    <title>{% block title %} {{ Html.encode(this.title) }} {% endblock %}</title>
+    <title>{% block title %} {{ Html.encode(app.name) }} {% endblock %}</title>
     {{ this.head() }}
 </head>
 {{ this.beginBody() }}
 <body>
     <div class="wrap">
         {{ NavBar_begin({
-           'brandLabel': 'My Company',
+           'brandLabel': app.name,
            'brandUrl' : app.homeUrl,
            'options' : {
                'class' : 'navbar-inverse navbar-fixed-top'
@@ -61,16 +62,22 @@
         {{ NavBar_end() }}
         <div class="container">
             <div class="row">
+                {{ Breadcrumbs_widget({
+                'links':
+                     this.params['breadcrumbs'] ? this.params['breadcrumbs'] : []
+                })
+                }}
+
             {% block content %}
 
             {% endblock %}
+
             </div>
         </div>
     </div>
     <footer class="footer">
         <div class="container">
-            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-            <p class="pull-right"><?= Yii::powered() ?></p>
+            <p class="pull-left">&copy; {{ app.name }} {{ "now"|date("Y") }}</p>
         </div>
     </footer>
     {{ this.endBody() }}

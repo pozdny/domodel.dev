@@ -11,10 +11,10 @@ use yii\base\InvalidParamException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
-use yii\web\Controller;
+use app\components\BaseController;
 use Yii;
 
-class DefaultController extends Controller
+class DefaultController extends BaseController
 {
     public function behaviors()
     {
@@ -84,7 +84,7 @@ class DefaultController extends Controller
             }
         }
 
-        return $this->render('signup', [
+        return $this->render('signup.twig', [
             'model' => $model,
         ]);
     }

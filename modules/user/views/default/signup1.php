@@ -9,6 +9,7 @@ use yii\captcha\Captcha;
 
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="user-default-signup">
     <h1><?= Html::encode($this->title) ?></h1>
